@@ -4,13 +4,22 @@ const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
+let path = require('path');
+
 const express = require('express');
 const app = express();
 
-app.set("view engine", "ejs");
+// Enable static public folder
+app.use(express.static('./public'));
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('pages/home', {
+        name: 'Caree'
+    });
 });
 
 app.listen(port, hostname, () => {
